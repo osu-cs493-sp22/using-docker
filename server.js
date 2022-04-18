@@ -1,6 +1,12 @@
 const express = require('express')
+const fetch = require('isomorphic-unfetch')
+
 const app = express()
 const port = process.env.PORT || 8000
+
+const dbHost = process.env.DB_HOST
+const dbPort = process.env.DB_PORT || 5678
+const dbUrl = `http://${dbHost}:${dbPort}/query`
 
 app.use(express.json())
 
@@ -19,7 +25,13 @@ app.get('/', function (req, res, next) {
 })
 
 app.get('/lodgings', function (req, res, next) {
-    res.status(200).send({})
+    fetch(dbUrl, {
+        method: 'POST',
+        body: 'SELECT * FROM lodgings'
+    }).then(function (results) {
+        console.log("  - results:", results)
+        res.status(200).send({})
+    })
 })
 
 app.use('*', function (req, res, next) {

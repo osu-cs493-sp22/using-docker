@@ -1,0 +1,16 @@
+services:
+  db:
+    build:
+      dockerfile: Dockerfile-db
+      context: .
+    environment:
+      - PORT=5678
+
+  api:
+    build: .
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5678
+      - PORT=8000
+    ports:
+      - "8002:8000"

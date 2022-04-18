@@ -4,7 +4,8 @@
   "description": "Containerization with Docker",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "isomorphic-unfetch": "^3.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
